@@ -190,10 +190,12 @@
             // listView1
             // 
             this.listView1.AutoArrange = false;
+            this.listView1.BackColor = System.Drawing.SystemColors.Window;
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Operation,
             this.Value,
             this.Summary});
+            this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
             this.listView1.Location = new System.Drawing.Point(55, 35);
             this.listView1.Name = "listView1";
