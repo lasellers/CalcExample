@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.Xml.Serialization;
 using System.IO;
 using System.Xml;
+using Calc.Models;
 
 namespace Calc
 {
@@ -241,46 +242,55 @@ namespace Calc
         /// </summary>
         public void loadMemory()
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(CalcStorageFormat));
-
-            CalcStorageFormat memory;
-
-            FileStream fs = new FileStream("calcmemory.xml", FileMode.Open, FileAccess.Read);
-            XmlReader reader = XmlReader.Create(fs);
             try
             {
-                memory = (CalcStorageFormat)serializer.Deserialize(reader);
-            }
-            finally
-            {
-                reader.Dispose();
-                fs.Close();
-            }
+                XmlSerializer serializer = new XmlSerializer(typeof(CalcStorageFormat));
 
-            //
-            this.sum = memory.sum;
+                CalcStorageFormat memory;
 
-            //
-            this.textBox1.Text = "";
-
-            //
-            this.clearListView();
-            for (int i = 0; i < memory.history.Count;i++)
-            {
-                string line = memory.history[i];
-
-                string[] els = line.Split(this.delimiter);
-
+                FileStream fs = new FileStream("calcmemory.xml", FileMode.Open, FileAccess.Read);
+                XmlReader reader = XmlReader.Create(fs);
                 try
                 {
-                    ListViewItem lvi = new ListViewItem(els[0]);
-                    lvi.SubItems.Add(els[1]);
-                    lvi.SubItems.Add(els[2]);
-                    this.listView1.Items.Add(lvi);
-                } catch(IndexOutOfRangeException ex)
-                {
-
+                    memory = (CalcStorageFormat)serializer.Deserialize(reader);
                 }
+                finally
+                {
+                    reader.Dispose();
+                    fs.Close();
+                }
+
+                //
+                this.sum = memory.sum;
+
+                //
+                this.textBox1.Text = "";
+
+                //
+                this.clearListView();
+                for (int i = 0; i < memory.history.Count; i++)
+                {
+                    string line = memory.history[i];
+
+                    string[] els = line.Split(this.delimiter);
+
+                    try
+                    {
+                        ListViewItem lvi = new ListViewItem(els[0]);
+                        lvi.SubItems.Add(els[1]);
+                        lvi.SubItems.Add(els[2]);
+                        this.listView1.Items.Add(lvi);
+                    }
+                    catch (IndexOutOfRangeException ex)
+                    {
+
+                    }
+                }
+
+            } catch(InvalidOperationException ex)
+            {
+                // catch XmlSerializer
+
             }
 
         }
@@ -321,13 +331,4 @@ namespace Calc
         }
     }
 
-}
-
-/// <summary>
-/// 
-/// </summary>
-public class CalcStorageFormat
-{
-    public int sum;
-    public List<string> history;
 }
