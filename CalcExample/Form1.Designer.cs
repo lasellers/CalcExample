@@ -50,6 +50,7 @@
             this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonClear = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,7 +68,7 @@
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(198, 249);
+            this.button2.Location = new System.Drawing.Point(182, 249);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(76, 32);
             this.button2.TabIndex = 1;
@@ -100,7 +101,7 @@
             // button5
             // 
             this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.Location = new System.Drawing.Point(198, 295);
+            this.button5.Location = new System.Drawing.Point(182, 295);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(76, 32);
             this.button5.TabIndex = 4;
@@ -133,7 +134,7 @@
             // button8
             // 
             this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button8.Location = new System.Drawing.Point(198, 349);
+            this.button8.Location = new System.Drawing.Point(182, 349);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(76, 32);
             this.button8.TabIndex = 7;
@@ -179,7 +180,7 @@
             // 
             this.buttonPlus.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.buttonPlus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonPlus.Location = new System.Drawing.Point(198, 449);
+            this.buttonPlus.Location = new System.Drawing.Point(182, 449);
             this.buttonPlus.Name = "buttonPlus";
             this.buttonPlus.Size = new System.Drawing.Size(76, 32);
             this.buttonPlus.TabIndex = 11;
@@ -212,7 +213,7 @@
             // Value
             // 
             this.Value.Text = "Value";
-            this.Value.Width = 123;
+            this.Value.Width = 120;
             // 
             // Summary
             // 
@@ -274,11 +275,21 @@
             this.buttonClear.UseVisualStyleBackColor = true;
             this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 72);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(0, 13);
+            this.label1.TabIndex = 18;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(435, 490);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonClear);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.listView1);
@@ -295,6 +306,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.menuStrip1);
+            this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Calc Example";
@@ -330,6 +342,7 @@
         private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
         private System.Windows.Forms.Button buttonClear;
+        private System.Windows.Forms.Label label1;
     }
 }
 

@@ -17,12 +17,12 @@ namespace Calc
 {
     public partial class Form1 : Form
     {
+        private int sum = 0;
+
         public Form1()
         {
             InitializeComponent();
         }
-
-        private int sum = 0;
 
         public void Form1_Load(object sender, EventArgs e)
         {
@@ -32,11 +32,6 @@ namespace Calc
         public void Form1_Save(object sender, EventArgs e)
         {
             saveMemory();
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void button0_Click(object sender, EventArgs e)
@@ -98,19 +93,22 @@ namespace Calc
         {
             try
             {
-                int num = Int32.Parse(this.textBox1.Text.ToString());
-                this.sum -= num;
-                string line = this.sum.ToString();
+                if (CalcValidate.ValidateValueIsNumeric(this.textBox1.Text))
+                {
+                    int num = Int32.Parse(this.textBox1.Text.ToString());
+                    this.sum -= num;
+                    string summary = this.sum.ToString();
 
-                ListViewItem lvi = new ListViewItem("-");
-                lvi.SubItems.Add(this.textBox1.Text);
-                lvi.SubItems.Add(line);
-                this.listView1.Items.Add(lvi);
+                    ListViewItem listViewItem = new ListViewItem("-");
+                    listViewItem.SubItems.Add(this.textBox1.Text);
+                    listViewItem.SubItems.Add(summary);
+                    this.listView1.Items.Add(listViewItem);
+                }
 
             }
             catch (FormatException ev)
             {
-                Debug.WriteLine("FormatException");
+                Debug.WriteLine("FormatException " + ev.Message);
             }
 
             this.textBox1.Text = "";
@@ -129,18 +127,21 @@ namespace Calc
         {
             try
             {
-                int num = Int32.Parse(this.textBox1.Text.ToString());
-                this.sum += num;
-                string line = this.sum.ToString();
+                if (CalcValidate.ValidateValueIsNumeric(this.textBox1.Text))
+                {
+                    int num = Int32.Parse(this.textBox1.Text.ToString());
+                    this.sum += num;
+                    string summary = this.sum.ToString();
 
-                ListViewItem lvi = new ListViewItem("+");
-                lvi.SubItems.Add(this.textBox1.Text);
-                lvi.SubItems.Add(line);
-                this.listView1.Items.Add(lvi);
+                    ListViewItem listViewItem = new ListViewItem("+");
+                    listViewItem.SubItems.Add(this.textBox1.Text);
+                    listViewItem.SubItems.Add(summary);
+                    this.listView1.Items.Add(listViewItem);
+                }
             }
             catch (FormatException ev)
             {
-                Debug.WriteLine("FormatException");
+                Debug.WriteLine("FormatException " + ev.Message);
             }
 
             this.textBox1.Text = "";
@@ -174,6 +175,16 @@ namespace Calc
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        private void buttonClear_Click(object sender, EventArgs e)
+        {
+            this.clearMemory();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void resetToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.sum = 0;
@@ -190,17 +201,6 @@ namespace Calc
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.clearMemory();
-        }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void buttonClear_Click(object sender, EventArgs e)
         {
             this.clearMemory();
         }
@@ -238,7 +238,7 @@ namespace Calc
         private char delimiter = ',';
 
         /// <summary>
-        /// 
+        /// Loads a log of all operations that have occured since last CE/clear
         /// </summary>
         public void loadMemory()
         {
@@ -276,20 +276,22 @@ namespace Calc
 
                     try
                     {
-                        ListViewItem lvi = new ListViewItem(els[0]);
-                        lvi.SubItems.Add(els[1]);
-                        lvi.SubItems.Add(els[2]);
-                        this.listView1.Items.Add(lvi);
+                        ListViewItem listViewItem = new ListViewItem(els[0]);
+                        listViewItem.SubItems.Add(els[1]);
+                        listViewItem.SubItems.Add(els[2]);
+                        this.listView1.Items.Add(listViewItem);
                     }
                     catch (IndexOutOfRangeException ex)
                     {
-
+                        Debug.WriteLine("IndexOutOfRangeException " + ex.Message);
                     }
                 }
 
-            } catch(InvalidOperationException ex)
+            }
+            catch (InvalidOperationException ex)
             {
                 // catch XmlSerializer
+                Debug.WriteLine("InvalidOperationException " + ex.Message);
 
             }
 
